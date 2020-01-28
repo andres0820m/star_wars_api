@@ -53,6 +53,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'swapi_graphene.urls'
 
+GRAPHENE = {
+    'SCHEMA': 'swapi_graphene.schema.schema'
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
