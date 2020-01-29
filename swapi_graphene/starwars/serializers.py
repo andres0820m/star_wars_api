@@ -9,7 +9,6 @@ class PeopleSerializer(serializers.ModelSerializer):
 
 
 class FilmSerializer(serializers.ModelSerializer):
-    #characters = PeopleSerializer(read_only=True, many=True)
 
     class Meta:
         model = Film

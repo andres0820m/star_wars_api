@@ -85,6 +85,7 @@ class CreatePeople(graphene.Mutation):
             homeworld=home_id
         )
         people.save()
+        return people
 
 
 class CreatePlanets(graphene.Mutation):
@@ -112,39 +113,18 @@ class CreatePlanets(graphene.Mutation):
 
     def mutate(self, _, name, rotation_period="", orbital_period="", diameter="", climate="", gravity="", terrain="",
                surface_water="", population=""):
-        Planet(name=name,
-               rotation_period=rotation_period,
-               orbital_period=orbital_period,
-               diameter=diameter,
-               climate=climate,
-               gravity=gravity,
-               terrain=terrain,
-               surface_water=surface_water,
-               population=population
-               ).save()
-
-
-'''
-class CreateFilm(graphene.Mutation):
-    id = graphene.Int()
-    title = graphene.String()
-    characters = graphene.Field(PeopleNode)
-
-    class Arguments:
-        title = graphene.String()
-        characters = graphene.String()
-
-    def mutate(self, _, title: str, characters: str):
-        total = []
-        persons = characters.split(',')
-        for person in persons:
-            print(person)
-            total.append(People.objects.get(name=person))
-        Film(
-            title=title,
-            characters=total
-        )
-'''
+        planet = Planet(name=name,
+                        rotation_period=rotation_period,
+                        orbital_period=orbital_period,
+                        diameter=diameter,
+                        climate=climate,
+                        gravity=gravity,
+                        terrain=terrain,
+                        surface_water=surface_water,
+                        population=population
+                        )
+        planet.save()
+        return planet
 
 
 class FilmSerializerMutation(DjangoSerializerMutation):
@@ -156,6 +136,6 @@ class FilmSerializerMutation(DjangoSerializerMutation):
 class Mutation(graphene.ObjectType):
     create_people = CreatePeople.Field()
     create_planet = CreatePlanets.Field()
-    film_create = FilmSerializerMutation.CreateField(deprecation_reason='Some one deprecation message')
+    film_create = FilmSerializerMutation.CreateField()
     film_delete = FilmSerializerMutation.DeleteField()
     film_update = FilmSerializerMutation.UpdateField()
