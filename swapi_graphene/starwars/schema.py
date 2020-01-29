@@ -70,7 +70,8 @@ class CreatePeople(graphene.Mutation):
         gender = graphene.String()
         homeworld = graphene.String()
 
-    def mutate(self, _, name, height, mass, hair_color, skin_color, eye_color, birth_year, gender, homeworld):
+    def mutate(self, _, name, homeworld, height="", mass="", hair_color="", skin_color="", eye_color="",
+               birth_year="", gender=""):
         home_id = Planet.objects.get(name=homeworld)
         people = People(
             name=name,
@@ -86,6 +87,65 @@ class CreatePeople(graphene.Mutation):
         people.save()
 
 
+class CreatePlanets(graphene.Mutation):
+    id = graphene.Int()
+    name = graphene.String()
+    rotation_period = graphene.String()
+    orbital_period = graphene.String()
+    diameter = graphene.String()
+    climate = graphene.String()
+    gravity = graphene.String()
+    terrain = graphene.String()
+    surface_water = graphene.String()
+    population = graphene.String()
+
+    class Arguments:
+        name = graphene.String()
+        rotation_period = graphene.String()
+        orbital_period = graphene.String()
+        diameter = graphene.String()
+        climate = graphene.String()
+        gravity = graphene.String()
+        terrain = graphene.String()
+        surface_water = graphene.String()
+        population = graphene.String()
+
+    def mutate(self, _, name, rotation_period="", orbital_period="", diameter="", climate="", gravity="", terrain="",
+               surface_water="", population=""):
+        Planet(name=name,
+               rotation_period=rotation_period,
+               orbital_period=orbital_period,
+               diameter=diameter,
+               climate=climate,
+               gravity=gravity,
+               terrain=terrain,
+               surface_water=surface_water,
+               population=population
+               ).save()
+
+
+class CreateFilm(graphene.Mutation):
+    id = graphene.Int()
+    title = graphene.String()
+    characters = graphene.Field(PeopleNode)
+
+    class Arguments:
+        title = graphene.String()
+        characters = graphene.String()
+
+    def mutate(self, _, title: str, characters: str):
+        total = []
+        persons = characters.split(',')
+        for person in persons:
+            print(person)
+            total.append(People.objects.get(name=person))
+        Film(
+            title=title,
+            characters=total
+        )
+
 
 class Mutation(graphene.ObjectType):
     create_people = CreatePeople.Field()
+    create_planet = CreatePlanets.Field()
+    create_movie = CreateFilm.Field()
