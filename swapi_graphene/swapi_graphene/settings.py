@@ -55,7 +55,8 @@ GRAPHENE = {
     'SCHEMA': 'swapi_graphene.schema.schema',
     'SCHEMA_INDENT': 4,
     'MIDDLEWARE': [
-        'graphene_django_extras.ExtraGraphQLDirectiveMiddleware'
+        'graphene_django_extras.ExtraGraphQLDirectiveMiddleware',
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ]
 }
 
@@ -66,6 +67,11 @@ GRAPHENE_DJANGO_EXTRAS = {
     'CACHE_ACTIVE': True,
     'CACHE_TIMEOUT': 300  # seconds
 }
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 TEMPLATES = [
     {

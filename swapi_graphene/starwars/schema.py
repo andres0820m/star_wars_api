@@ -6,7 +6,7 @@ import graphene
 from .models import People, Planet, Film
 from .serializers import PeopleSerializer, FilmSerializer
 from graphene_django_extras import DjangoSerializerMutation
-
+import graphql_jwt
 
 class PeopleNode(DjangoObjectType):
     class Meta:
