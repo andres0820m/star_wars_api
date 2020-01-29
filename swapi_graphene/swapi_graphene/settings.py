@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'mk9_l$%ik)rk+ayrrl9m5u%b4=(&td#q_7flz2y*tenluvs=c8'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -54,7 +52,19 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'swapi_graphene.urls'
 
 GRAPHENE = {
-    'SCHEMA': 'swapi_graphene.schema.schema'
+    'SCHEMA': 'swapi_graphene.schema.schema',
+    'SCHEMA_INDENT': 4,
+    'MIDDLEWARE': [
+        'graphene_django_extras.ExtraGraphQLDirectiveMiddleware'
+    ]
+}
+
+GRAPHENE_DJANGO_EXTRAS = {
+    'DEFAULT_PAGINATION_CLASS': 'graphene_django_extras.paginations.LimitOffsetGraphqlPagination',
+    'DEFAULT_PAGE_SIZE': 20,
+    'MAX_PAGE_SIZE': 50,
+    'CACHE_ACTIVE': True,
+    'CACHE_TIMEOUT': 300  # seconds
 }
 
 TEMPLATES = [
@@ -74,7 +84,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'swapi_graphene.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -109,7 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -122,7 +130,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

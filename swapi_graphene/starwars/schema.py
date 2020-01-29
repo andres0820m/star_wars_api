@@ -4,8 +4,8 @@ from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 import graphene
 from .models import People, Planet, Film
-from graphene_django.rest_framework.mutation import SerializerMutation
-from .serializers import PeopleSerializer
+from .serializers import PeopleSerializer, FilmSerializer
+from graphene_django_extras import DjangoSerializerMutation
 
 
 class PeopleNode(DjangoObjectType):
@@ -124,6 +124,7 @@ class CreatePlanets(graphene.Mutation):
                ).save()
 
 
+'''
 class CreateFilm(graphene.Mutation):
     id = graphene.Int()
     title = graphene.String()
@@ -143,9 +144,18 @@ class CreateFilm(graphene.Mutation):
             title=title,
             characters=total
         )
+'''
+
+
+class FilmSerializerMutation(DjangoSerializerMutation):
+    class Meta:
+        description = " DRF serializer based Mutation for Users "
+        serializer_class = FilmSerializer
 
 
 class Mutation(graphene.ObjectType):
     create_people = CreatePeople.Field()
     create_planet = CreatePlanets.Field()
-    create_movie = CreateFilm.Field()
+    film_create = FilmSerializerMutation.CreateField(deprecation_reason='Some one deprecation message')
+    film_delete = FilmSerializerMutation.DeleteField()
+    film_update = FilmSerializerMutation.UpdateField()
