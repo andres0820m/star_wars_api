@@ -15,7 +15,6 @@ services:
     build: .
     volumes:
       - prueba_db_postgres_data:/var/lib/postgresql/data/
-      - ${DEODATA_VIDEOS_STORAGE}:/var/data/deodata
     ports:
       - 8000:8000
     depends_on:

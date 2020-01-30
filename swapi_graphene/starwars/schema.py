@@ -1,12 +1,13 @@
-# cookbook/ingredients/schema.py
-from graphene import relay, ObjectType
-from graphene_django import DjangoObjectType
-from graphene_django.filter import DjangoFilterConnectionField
 import graphene
-from .models import People, Planet, Film
-from .serializers import PeopleSerializer, FilmSerializer
+from graphene import ObjectType
+from graphene_django import DjangoObjectType
 from graphene_django_extras import DjangoSerializerMutation
-import graphql_jwt
+
+from .models import People, Planet, Film
+from .serializers import FilmSerializer
+
+_USE_AUTH = False
+
 
 class PeopleNode(DjangoObjectType):
     class Meta:
@@ -29,20 +30,24 @@ class Query(ObjectType):
     all_planets = graphene.List(PlanetNode)
     film = graphene.List(FilmNode, characters=graphene.String())
 
-    # people_filter = DjangoFilterConnectionField(PeopleNode)
-
-    def resolve_all_planets(self, info, **kwargs):
-        return Planet.objects.select_related('name').all()
-
-    def resolve_all_people(self, _, **kwargs):
+    def resolve_all_people(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous and _USE_AUTH:
+            raise Exception('Not logged!')
         return People.objects.all()
 
-    def resolve_people(self, _, **kwargs):
+    def resolve_people(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous and _USE_AUTH:
+            raise Exception('Not logged!')
         name = kwargs.get('name')
         if name is not None:
             return People.objects.get(name=name)
 
-    def resolve_film(self, _, **kwargs):
+    def resolve_film(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous and _USE_AUTH:
+            raise Exception('Not logged!')
         character = People.objects.get(name=kwargs.get('characters'))
         return Film.objects.filter(characters=character)
 
@@ -70,8 +75,11 @@ class CreatePeople(graphene.Mutation):
         gender = graphene.String()
         homeworld = graphene.String()
 
-    def mutate(self, _, name, homeworld, height="", mass="", hair_color="", skin_color="", eye_color="",
+    def mutate(self, info, name, homeworld, height="", mass="", hair_color="", skin_color="", eye_color="",
                birth_year="", gender=""):
+        user = info.context.user
+        if user.is_anonymous and _USE_AUTH:
+            raise Exception('Not logged!')
         home_id = Planet.objects.get(name=homeworld)
         people = People(
             name=name,
@@ -111,8 +119,11 @@ class CreatePlanets(graphene.Mutation):
         surface_water = graphene.String()
         population = graphene.String()
 
-    def mutate(self, _, name, rotation_period="", orbital_period="", diameter="", climate="", gravity="", terrain="",
+    def mutate(self, info, name, rotation_period="", orbital_period="", diameter="", climate="", gravity="", terrain="",
                surface_water="", population=""):
+        user = info.context.user
+        if user.is_anonymous and _USE_AUTH:
+            raise Exception('Not logged!')
         planet = Planet(name=name,
                         rotation_period=rotation_period,
                         orbital_period=orbital_period,

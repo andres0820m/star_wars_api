@@ -101,7 +101,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         # 'HOST': '10.100.12.90',  # TITAN IP
-        'HOST': 'localhost',  # localhost
+        'HOST': 'prueba-db',  # localhost
         'PORT': 5432  # postgres port
     }
 }

@@ -1,9 +1,7 @@
 django 
-djangorestframework
-django-cors-headers 
-gunicorn 
-psycopg2-binary 
-django-admin-generator
-install graphene-django-extras 
+djangorestframework 
+psycopg2-binary
+graphene-django 
+graphene-django-extras 
 django-smart-selects 
-install django-graphql-jwt
+django-graphql-jwt
