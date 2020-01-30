@@ -1,0 +1,7 @@
+django 
+djangorestframework 
+psycopg2-binary
+graphene-django 
+graphene-django-extras 
+django-smart-selects 
+django-graphql-jwt

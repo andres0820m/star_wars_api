@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+  prueba-db:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=prueba-db
+    volumes:
+      - prueba_db_postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+  web-services-api:
+    build: .
+    volumes:
+      - prueba_db_postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 8000:8000
+    depends_on:
+      - prueba-db
+volumes:
+  prueba_db_postgres_data:
