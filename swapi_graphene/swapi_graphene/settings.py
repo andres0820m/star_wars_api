@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'mk9_l$%ik)rk+ayrrl9m5u%b4=(&td#q_7flz2y*tenluvs=c8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -101,7 +101,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         # 'HOST': '10.100.12.90',  # TITAN IP
-        'HOST': 'prueba-db',  # localhost
+        'HOST': 'localhost',  # localhost
         'PORT': 5432  # postgres port
     }
 }
