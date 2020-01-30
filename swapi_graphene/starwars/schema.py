@@ -6,7 +6,7 @@ from graphene_django_extras import DjangoSerializerMutation
 from .models import People, Planet, Film
 from .serializers import FilmSerializer
 
-_USE_AUTH = True
+_USE_AUTH = False
 
 
 class PeopleNode(DjangoObjectType):
