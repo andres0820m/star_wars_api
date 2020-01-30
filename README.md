@@ -18,7 +18,8 @@ docker-compose up --build
 ![image](https://user-images.githubusercontent.com/30030792/73417181-36a5c900-42e5-11ea-8ee9-2a7a4901f4bb.png)
 
 se construirá una base de datos en posgres en el puerto 5434, cambiar el puerto en el docker-compose-yml de ser necesario.
-al finalizar se tendrá construida y andando la api lista para recibir peticiones. para este caso en : http://localhost:8000/graphql "si se encuentran acttivas las autentificaciones probar desde postman o insomnia ya que es requerido el token de autentificación en los headers de la petición"
+
+al finalizar se tendrá construida y andando la api lista para recibir peticiones. para este caso en : http://localhost:8000/graphql "si se encuentran activas las autentificaciones probar desde postman o insomnia ya que es requerido el token de autentificación en los headers de la petición"
 la información de las películas fue tomada del siguiente repositorio: https://github.com/phalt/swapi el cual cuenta con la siguiente api hecha en django-rest-framework :https://swapi.co/ toda la información de los personajes películas que se encuentra en api en los campos disponibles para los querys y las mutaciones esta disponible.
 las querys disponibles son:
 people
@@ -26,7 +27,7 @@ allPeople
 film
 los cuales funcionan de la siguiente manera:
 ## people:
-people entrega la información de un personaje de la saga filtrango por su nombre, como se menciono arriba, todos los campos disponibles en en swapi pueden ser consultados.
+people entrega la información de un personaje de la saga filtrando por su nombre, como se menciono arriba, todos los campos disponibles en en swapi pueden ser consultados.
 un ejemplo de uso:
 ![image](https://user-images.githubusercontent.com/30030792/73417095-e7f82f00-42e4-11ea-97ae-7c154b2ce4bd.png)
 
@@ -47,11 +48,11 @@ los cuales funcionan de la siguiente manera:
 ## createpeople:
 sirve para crear personajes en la base de datos los campos requeridos son name, homeworld, un ejemplo de uso:
 ![image](https://user-images.githubusercontent.com/30030792/73417967-ea0fbd00-42e7-11ea-94d8-5788df4e9ee0.png)
- nota se pueden agregar todos los otros campos 
+ nota: se pueden agregar todos los otros campos 
 ## createplanet:
 sirve para crear planetas en la base de datos el campo requerido es name, un ejemplo de uso:
 ![image](https://user-images.githubusercontent.com/30030792/73418110-699d8c00-42e8-11ea-8ca3-d44e76e03a0b.png)
-nota se pueden agregar todos los otro campos, solo es obligatorio el nombre
+nota: se pueden agregar todos los otro campos, solo es obligatorio el nombre
 ## filmcreate:
 se usa para crear películas en la base de datos, los campos requeridos son: 
 title,director,episodeId,openingCrawl,producer,releaseDate los demas campos que son relaciones se pueden llenar con el id al de quetenecen como en el ejemplo:
